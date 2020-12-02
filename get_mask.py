@@ -2,7 +2,7 @@
 Author       : ZHP
 Date         : 2020-11-23 16:27:26
 LastEditors  : ZHP
-LastEditTime : 2020-11-27 15:49:51
+LastEditTime : 2020-12-02 16:28:51
 FilePath     : /Earlier_Project/get_mask.py
 Description  : 通过LeNet提取feature map和标签，再经过co-localization得到rough mask,最后通过refinement得到mask
 Copyright 2020 ZHP
@@ -15,6 +15,7 @@ import numpy as np
 import torch
 import cv2
 from PIL import Image
+import argparse
 
 FEATURE_MAP_SIZE = 25
 
@@ -87,11 +88,15 @@ def Multi_level_folder(Parent_directory, model_info, save_dir_mask, save_dir_cat
             except:
                 print(f'{file_path} 结果保存失败')
             else:
-                print(f'{figure_name} 生成成功 \n mask保存为 : {mask_file} \n 拼接图片保存为 ： {cat_file}')
+                print(f'{figure_name} 生成成功 \n mask保存为 : {mask_file} \n 拼接图片保存为 ： {cat_file}\n\n')
+                print('-'*50)
 
 
 if __name__ == '__main__':
     args = get_args()
     # 多层目录文件测试
-    Multi_level_folder(args.testDir, args.model_info, args.save_dir_mask, args.save_dir_cat)
+    save_dir_mask = '/disk/dataset/test_poor/Pre_wpy/Mask_1202'
+    save_dir_cat = '/disk/dataset/test_poor/Pre_wpy/OriginMask_1202'
+    # Multi_level_folder(args.testDir, args.model_info, args.save_dir_mask, args.save_dir_cat)
+    Multi_level_folder(args.testDir, args.model_info, save_dir_mask, save_dir_cat)
     print('done..')

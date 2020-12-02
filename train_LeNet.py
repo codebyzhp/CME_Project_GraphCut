@@ -2,7 +2,7 @@
 Author       : ZHP
 Date         : 2020-11-18 20:19:25
 LastEditors  : ZHP
-LastEditTime : 2020-11-23 21:16:12
+LastEditTime : 2020-12-02 16:21:21
 FilePath     : /Earlier_Project/train_LeNet.py
 Description  : LeNet训练 usage: python train_LeNet --batch_size=batch size --lr=lr 
 Copyright 2020 ZHP
@@ -29,9 +29,9 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 def get_args():
     # Training settings
     parser = argparse.ArgumentParser(description='LeNet CME!')
-    parser.add_argument('--originalDir', default='/disk/dataset/cme/pytorch/vgg/201101_modify/', help='dataset original image directory')
-    parser.add_argument('--label_info', default='/disk/dataset/cme/pytorch/vgg/201101_modify_01_label.txt', help='dataset image label info file')
-    parser.add_argument('--saveDir', default='/disk/dataset/Earlier_Project/model_result/', help='model save dir')
+    parser.add_argument('--originalDir', default='dataset/201101_modify/', help='dataset original image directory')
+    parser.add_argument('--label_info', default='dataset/201101_modify_01_label.txt', help='dataset image label info file')
+    parser.add_argument('--saveDir', default='model_result/', help='model save dir')
     
     parser.add_argument('--model_name', default='LeNet5', help='model name')
     parser.add_argument('--size', type=int, default=112, help='input resize size')
@@ -128,7 +128,7 @@ def train_Net(args):
     model.to(device)
     lr = args.lr
     prefix = '{0}/batch_{1}_lr_{2}/'.format(args.model_name, args.batch_size, lr)
-    save_model_dir = args.saveDir + prefix
+    save_model_dir = os.path.join(os.getcwd(), args.saveDir) + prefix
     # 创建模型文件夹，并将训练中最好结果保存为json
     if not os.path.exists(save_model_dir):
         os.makedirs(save_model_dir)
@@ -214,6 +214,7 @@ def train_Net(args):
         writer.add_scalar(f'{args.model_name}/train loss', loss_item, epoch)
         
         val_loss, acc = valid(model, valid_loader, criterion)
+        
         if acc > best_acc:
             best_acc = acc
             print('\nacc improved..，start save model ..')

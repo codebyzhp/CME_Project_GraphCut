@@ -6,6 +6,9 @@
 
 # 项目目录
 ```
+├── dataset
+│   ├── 201101_modify
+│   └── 201101_modify_01_label.txt
 ├── dataset.py
 ├── get_mask.py
 ├── model_result
@@ -16,13 +19,10 @@
 │   ├── LeNet_PyTorch.py
 │   ├── __pycache__
 │   └── vgg16.py
-├── __pycache__
-│   └── dataset.cpython-36.pyc
 ├── README.md
 ├── rewrite
 │   ├── co_loco_visual.py
 │   ├── __init__.py
-│   ├── __pycache__
 │   └── refinement.py
 ├── runs
 │   └── LeNet5
@@ -38,9 +38,6 @@
     ├── wpy_code_v2
     └── wpy_primary
 ```
-
-
-
 
 `rewrite`文件夹下为重写的`Co-Localization`,`Refinement`代码，`wpy_cme`下为之前学长写的代码
 # 运行
@@ -86,5 +83,17 @@ python train_LeNet.py -h
 + 后缀为`_mask.png`是最终的单张mask图；
 + 后缀为`_mask_cat.png`是原图和mask组合图
 
-待补充....2020.11.27
+----2020.11.27
 ===
+2020.12.02更新，添加训练集`dataset/`，其中：
+```
+├── dataset
+│   ├── 201101_modify
+│   └── 201101_modify_01_label.txt
+```
+
+`201101_modify`是cme原图，包含有cme和无cme的图片，`201101_modify_01_label.txt`是文件夹图片名称和对应的标签。
+
+----2020.12.02
+===
+
