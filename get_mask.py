@@ -2,7 +2,7 @@
 Author       : ZHP
 Date         : 2020-11-23 16:27:26
 LastEditors  : ZHP
-LastEditTime : 2020-12-02 16:28:51
+LastEditTime : 2020-12-04 13:25:43
 FilePath     : /Earlier_Project/get_mask.py
 Description  : 通过LeNet提取feature map和标签，再经过co-localization得到rough mask,最后通过refinement得到mask
 Copyright 2020 ZHP
@@ -24,7 +24,7 @@ def get_args():
     parser = argparse.ArgumentParser(description='LeNet CME!')
     parser.add_argument('--testDir', default='/disk/dataset/test_poor/test', help='test image directory')
     parser.add_argument('--model_info', default='/disk/dataset/Earlier_Project/model_result/LeNet5/batch_4_lr_0.001/result.json', help='net info file')
-    parser.add_argument('--save_dir_mask ', default='/disk/dataset/test_poor/Pre_wpy/Mask_1123', help='the dir to save mask image')
+    parser.add_argument('--save_dir_mask', default='/disk/dataset/test_poor/Pre_wpy/Mask_1123', help='the dir to save mask image')
     parser.add_argument('--save_dir_cat', default='/disk/dataset/test_poor/Pre_wpy/OriginMask_1123', help='the dir to save stitched pictures')
     args = parser.parse_args()
     print('主要参数配置如下：\n')
@@ -52,7 +52,7 @@ def generate_mask(img_path, model_info):
     return mask, cat_mask_origin
 
 
-def Multi_level_folder(Parent_directory, model_info, save_dir_mask, save_dir_cat, start=None):
+def Multi_level_folder(Parent_directory, mod里边的项为用户输入的参数，关键就是要明白这参数是从程序外部输入的，而非代码本身的什么地方，要想看到它的效果就应该 将程序保存了，从外部来运行程序并给出参数。el_info, save_dir_mask, save_dir_cat, start=None):
     '''
     description: 
     param {
