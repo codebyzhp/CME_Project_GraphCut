@@ -2,7 +2,7 @@
 Author       : ZHP
 Date         : 2020-11-18 20:19:25
 LastEditors  : ZHP
-LastEditTime : 2020-12-02 16:21:21
+LastEditTime : 2020-12-08 19:39:29
 FilePath     : /Earlier_Project/train_LeNet.py
 Description  : LeNet训练 usage: python train_LeNet --batch_size=batch size --lr=lr 
 Copyright 2020 ZHP
@@ -20,7 +20,7 @@ from torch.utils.data import DataLoader,random_split
 from torchvision import transforms
 from PIL import Image
 import time
-from dataset import CMESet
+from data.dataset import CMESet
 from test_LeNet import test_one, test
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

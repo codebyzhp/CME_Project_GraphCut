@@ -2,7 +2,7 @@
 Author       : ZHP
 Date         : 2020-11-19 10:57:14
 LastEditors  : ZHP
-LastEditTime : 2020-11-27 16:44:04
+LastEditTime : 2020-12-08 19:39:09
 FilePath     : /Earlier_Project/test_LeNet.py
 Description  : 利用训练好的LeNet模型生成feature map和分类结果
 Copyright 2020 ZHP
@@ -16,7 +16,7 @@ import copy
 import numpy as np
 from torchvision import transforms
 import time
-from dataset import CMESet
+from data.dataset import CMESet
 from PIL import Image
 import argparse
 
