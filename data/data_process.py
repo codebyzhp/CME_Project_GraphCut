@@ -2,7 +2,7 @@
 Author       : ZHP
 Date         : 2020-12-04 16:18:13
 LastEditors  : ZHP
-LastEditTime : 2020-12-08 19:37:39
+LastEditTime : 2020-12-09 13:05:55
 FilePath     : /Earlier_Project/data/data_process.py
 Description  : 从源数据(.dat)生成图片
 Copyright 2020 ZHP
@@ -74,13 +74,10 @@ def generate_image(folder, out_folder, out_size=(512, 512), out_mode=0):
             date_list.append(name[:8])
     date_list.sort()
     final_img = np.zeros((RESOLUTION[0], RESOLUTION[1]))
-    count = 0
+    year_count = 0
     start = time.time()
     for date in date_list:
-        yy = date[0:4]
-        mm = date[4:6]
-        dd = date[6:]
-        print(f'year : {yy}  month : {mm}, day : {dd}')
+        print(f"\nProcessing data for {date[0:4]}/{date[4:6]}/{date[6:]}")
         try:
             data_file = open(os.path.join(folder, date + '_lev1_little.dat'), 'rb')                       # little.dat
             with open(os.path.join(folder, date + '_lev1_info.dat'), 'r') as f:
@@ -108,8 +105,8 @@ def generate_image(folder, out_folder, out_size=(512, 512), out_mode=0):
         if out_mode == 1:
             median = np.median(data, axis=0)
             data = data - median
-        
-        for i in range(2, img_num + 1):  # 索引1为上月最后一张
+        count = 0
+        for i in range(2, img_num + 1):  # 索引1为昨天最后一张
             img_name = str(info[i][:19])
             img_name = img_name.replace(':', '_')
             if out_mode == 1:
@@ -129,8 +126,9 @@ def generate_image(folder, out_folder, out_size=(512, 512), out_mode=0):
                 print('start generate..')
         final_img = data[-1]
         data_file.close()
+        year_count += count
         # info.close()
-    print("Successfully generated {0} image".format(count))
+    print("\nSuccessfully generated {0} image for {1}.{2}".format(year_count, date[0:4], date[4:6]))
     cal_time(time.time() - start)
 
 
@@ -144,7 +142,9 @@ def get_img_singel_year(folder, out_folder):
     '''
     month_list = ['January', 'February', 'March', 'April', 'May', 'June',\
         'July', 'August', 'September', 'October', 'November', 'December']
-    for month in os.listdir(folder):
+    month_dir = os.listdir(folder)
+    month_dir.sort()
+    for month in month_dir:
         out_dir = os.path.join(out_folder, month)
         print('Converting {0} data into pictures...'.format(month_list[int(month)-1]))
         generate_image(os.path.join(folder, month), out_dir)
